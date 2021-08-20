@@ -25,12 +25,15 @@ function main() {
     robot.mouseClick();
 
     // Move to random position
-    robot.moveMouseSmooth(x + randInt(0, 5), y + randInt(0, 5));
+    robot.moveMouseSmooth(alchX + randInt(0, 5), alchY + randInt(0, 5));
 
     // Sleep for a random amount of time
-    const randomSleep = Math.abs(randInt(3, 5));
-    console.log(`Sleeping for ${randomSleep} seconds`);
-    sleep(randomSleep);
+    const minTime = 500; // milliseconds
+    const maxTime = 1000; // milliseconds
+
+    const randomTime = Math.abs(randInt(minTime, maxTime));
+    console.log(`Sleeping for ${randomTime} milliseconds`);
+    sleepms(randomTime);
 }
 
 // Auto-clicks but moves the mouse to the original position
@@ -47,9 +50,12 @@ function busyMain() {
     // Move to the original position
     robot.moveMouse(mouseOrigin.x, mouseOrigin.y);
 
-    const randomSleep = Math.abs(randInt(3, 5));
-    console.log(`Sleeping for ${randomSleep} seconds`);
-    sleep(randomSleep);
+    const minTime = 500; // milliseconds
+    const maxTime = 1000; // milliseconds
+
+    const randomTime = Math.abs(randInt(minTime, maxTime));
+    console.log(`Sleeping for ${randomTime} milliseconds`);
+    sleepms(randomTime);
 }
 
 function moveToCenter() {
@@ -78,9 +84,13 @@ function sleep(seconds) {
     // console.log(`Slept ${seconds} seconds`);
 }
 
+function sleepms(ms) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
 sleep(2);
 
 while (true) {
-    // main();
-    busyMain();
+    main();
+    // busyMain();
 }

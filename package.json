@@ -10,6 +10,7 @@
     "author": "Jan Iverson Eligio",
     "license": "ISC",
     "dependencies": {
+        "momentjs": "^2.0.0",
         "robotjs": "^0.6.0"
     }
 }
