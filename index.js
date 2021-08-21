@@ -1,5 +1,5 @@
 const robot = require('robotjs');
-const moment = require('momentjs');
+const moment = require('moment');
 
 class Point {
     constructor(x, y) {
@@ -20,20 +20,39 @@ function getMousePos() {
     console.log(mousePos);
 }
 
+const startTime = moment();
+console.log(moment(startTime).format('MMMM Do YYYY, h:mm:ss a'));
+
+// In seconds
+function getTimeElapsed(momentObj) {
+    const endTime = moment();
+    const elapsedTime = endTime.diff(momentObj, 'seconds');
+    return elapsedTime;
+}
+
 function main() {
     // Move the mouse to the center
-    robot.moveMouse(alchX, alchY);
-    robot.mouseClick();
+    // robot.moveMouse(alchX, alchY);
+    const { x, y } = robot.getMousePos();
+
+    if (
+        x > alchX - 100 &&
+        x < alchX + 100 &&
+        y > alchY - 100 &&
+        y < alchY + 100
+    ) {
+        robot.mouseClick();
+    }
 
     // Move to random position
-    robot.moveMouseSmooth(alchX + randInt(0, 5), alchY + randInt(0, 5));
+    // robot.moveMouseSmooth(alchX + randInt(0, 5), alchY + randInt(0, 5));
 
     // Sleep for a random amount of time
     const minTime = 500; // milliseconds
     const maxTime = 1000; // milliseconds
 
     const randomTime = Math.abs(randInt(minTime, maxTime));
-    console.log(`Sleeping for ${randomTime} milliseconds`);
+    // console.log(`Sleeping for ${randomTime} milliseconds`);
     sleepms(randomTime);
 }
 
@@ -91,7 +110,23 @@ function sleepms(ms) {
 
 sleep(2);
 
-while (true) {
+const minutesUntilKill = 160;
+
+const killTime = minutesUntilKill * 60; // Convert minutes to seconds
+
+let isAlive = true;
+
+console.log(`Running program for ${minutesUntilKill} minutes`);
+
+while (isAlive) {
+    const timeElapsed = getTimeElapsed(startTime);
+    // console.log(`Time elapsed: ${timeElapsed} seconds`);
+
     main();
     // busyMain();
+
+    if (timeElapsed > killTime) isAlive = false;
 }
+
+const totalTime = getTimeElapsed(startTime) / 60;
+console.log(`Killing process after ${totalTime} minutes`);
