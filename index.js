@@ -12,8 +12,10 @@ class Point {
     }
 }
 
-const alchPoint = new Point(901, 836);
-const { x: alchX, y: alchY } = alchPoint;
+const alchPointMac = new Point(1874, 794);
+const alchPointWindows = new Point(901, 836);
+
+const { x: alchX, y: alchY } = alchPointMac;
 
 function getMousePos() {
     const mousePos = robot.getMousePos();
@@ -48,7 +50,8 @@ function main() {
     // robot.moveMouseSmooth(alchX + randInt(0, 5), alchY + randInt(0, 5));
 
     // Sleep for a random amount of time
-    const minTime = 500; // milliseconds
+    // const minTime = 500; // milliseconds
+    const minTime = 750;
     const maxTime = 1000; // milliseconds
 
     const randomTime = Math.abs(randInt(minTime, maxTime));
@@ -60,21 +63,22 @@ function main() {
 function busyMain() {
     const mouseOrigin = robot.getMousePos();
 
-    moveToCenter();
+    // moveToCenter();
 
     robot.moveMouse(alchX, alchY);
     robot.mouseClick();
 
-    moveToCenter();
+    // moveToCenter();
 
     // Move to the original position
     robot.moveMouse(mouseOrigin.x, mouseOrigin.y);
 
-    const minTime = 500; // milliseconds
+    // const minTime = 500; // milliseconds
+    const minTime = 750;
     const maxTime = 1000; // milliseconds
 
     const randomTime = Math.abs(randInt(minTime, maxTime));
-    console.log(`Sleeping for ${randomTime} milliseconds`);
+    // console.log(`Sleeping for ${randomTime} milliseconds`);
     sleepms(randomTime);
 }
 
@@ -122,8 +126,8 @@ while (isAlive) {
     const timeElapsed = getTimeElapsed(startTime);
     // console.log(`Time elapsed: ${timeElapsed} seconds`);
 
-    main();
-    // busyMain();
+    // main();
+    busyMain();
 
     if (timeElapsed > killTime) isAlive = false;
 }
