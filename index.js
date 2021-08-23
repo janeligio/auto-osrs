@@ -12,7 +12,8 @@ class Point {
     }
 }
 
-const alchPointMac = new Point(1874, 794);
+// const alchPointMac = new Point(1874, 794);
+const alchPointMac = new Point(3787, 796);
 const alchPointWindows = new Point(901, 836);
 
 const { x: alchX, y: alchY } = alchPointMac;
@@ -128,6 +129,7 @@ while (isAlive) {
 
     // main();
     busyMain();
+    // getMousePos();
 
     if (timeElapsed > killTime) isAlive = false;
 }
