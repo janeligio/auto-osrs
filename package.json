@@ -5,11 +5,15 @@
     "main": "index.js",
     "scripts": {
         "start": "node ./index",
+        "alch": "node ./alch",
+        "mouse": "node ./mouse.js",
+        "mining": "node ./mining.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Jan Iverson Eligio",
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^10.0.0",
         "moment": "^2.29.1",
         "robotjs": "^0.6.0"
     }

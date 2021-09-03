@@ -18,11 +18,6 @@ const alchPointWindows = new Point(901, 836);
 
 const { x: alchX, y: alchY } = alchPointMac;
 
-function getMousePos() {
-    const mousePos = robot.getMousePos();
-    console.log(mousePos);
-}
-
 const startTime = moment();
 console.log(moment(startTime).format('MMMM Do YYYY, h:mm:ss a'));
 
@@ -120,6 +115,11 @@ const minutesUntilKill = 160;
 const killTime = minutesUntilKill * 60; // Convert minutes to seconds
 
 let isAlive = true;
+
+const endTime = moment(startTime).add(killTime, 'seconds');
+const endTimeFormatted = moment(endTime).format('MMMM Do YYYY, h:mm:ss a');
+
+console.log(`Ending program on ${endTimeFormatted}`);
 
 console.log(`Running program for ${minutesUntilKill} minutes`);
 
