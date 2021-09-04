@@ -9,6 +9,7 @@
         "crafting": "node ./crafting",
         "mining": "node ./mining.js",
         "mouse": "node ./mouse.js",
+        "molten": "node ./molten-glass.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Jan Iverson Eligio",
