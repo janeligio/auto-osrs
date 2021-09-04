@@ -13,6 +13,22 @@ require('dotenv').config();
 
 const { x, y } = parsePoint(process.env.ALCH_POINT);
 
+/**
+ * Client: OSRS
+ * Position: Top left corner of the screen using Rectangle
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 sleep(2);
 
 const minutesUntilKill = 120;
