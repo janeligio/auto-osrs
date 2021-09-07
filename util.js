@@ -26,6 +26,10 @@ function getTimeElapsed(momentObj) {
     return elapsedTime;
 }
 
+function isMac() {
+    return process.platform === 'darwin';
+}
+
 // function clearInventory(numSpaces) {
 //     const invWidth = invBottomRight.x - invTopLeft.x;
 //     const invHeight = invBottomRight.y - invTopLeft.y;
@@ -97,4 +101,5 @@ module.exports = {
     sleepms,
     getTimeElapsed,
     parsePoint,
+    isMac,
 };
