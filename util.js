@@ -9,6 +9,15 @@ function randInt(min, max) {
     return numb;
 }
 
+function generateRandomPoint(point, max) {
+    const { x, y } = point;
+
+    const xOffset = randInt(0, max);
+    const yOffset = randInt(0, max);
+
+    return { x: x + xOffset, y: y + yOffset };
+}
+
 function sleep(seconds) {
     const ms = seconds * 1000;
     // console.log(`Starting sleep for ${ms} milliseconds`);
@@ -99,6 +108,7 @@ module.exports = {
     randInt,
     sleep,
     sleepms,
+    generateRandomPoint,
     getTimeElapsed,
     parsePoint,
     isMac,

@@ -1,5 +1,6 @@
 const robot = require('robotjs');
 const moment = require('moment');
+const process = require('process');
 
 const {
     randInt,
@@ -8,6 +9,7 @@ const {
     getTimeElapsed,
     parsePoint,
     isMac,
+    generateRandomPoint,
 } = require('./util');
 require('dotenv').config();
 
@@ -29,7 +31,12 @@ function openBank() {
     const parsedBankPoint = parsePoint(bankPoint); // An object { x, y}
     const { x, y } = parsedBankPoint;
 
-    robot.moveMouseSmooth(x, y);
+    // Pick a point between x + 5 and x - 5
+    const xOffset = randInt(0, 5);
+    // Pick a point between y + 5 and y - 5
+    const yOffset = randInt(0, 5);
+
+    robot.moveMouseSmooth(x + xOffset, y + yOffset);
     robot.mouseClick();
 }
 
@@ -176,7 +183,7 @@ function castSuperglassMake() {
     robot.mouseClick();
 
     // Sleep for a random time between 3 and 5 seconds
-    const randomTime = Math.abs(randInt(3000, 5000));
+    const randomTime = Math.abs(randInt(1500, 2250));
     // console.log(`Sleeping for ${randomTime}ms`);
     sleepms(randomTime);
 }
@@ -190,6 +197,28 @@ const startTimeFormatted = moment(startTime).format('MMMM Do YYYY, h:mm:ss a');
 
 console.log(`Starting program on: ${startTimeFormatted}`);
 
+function exitMessage(code) {
+    endTime = moment();
+
+    // Print how long the program ran for
+    const duration = moment.duration(endTime.diff(startTime));
+    const durationFormatted = moment
+        .utc(duration.asMilliseconds())
+        .format('HH:mm:ss');
+
+    console.log(`About to exit with code: ${code}`);
+
+    console.log(
+        'Ending program on: ' +
+            moment(endTime).format('MMMM Do YYYY, h:mm:ss a')
+    );
+    console.log(`Program ran for ${durationFormatted}`);
+    process.exit();
+}
+
+process.on('SIGINT', exitMessage);
+process.on('exit', exitMessage);
+
 /**
  * To initialize:
  * Have magic tab open
@@ -201,12 +230,16 @@ console.log(`Starting program on: ${startTimeFormatted}`);
  * OS: Windows
  *
  */
-const iterations = 600;
+const iterations = 160;
 
 console.log(`Running for ${iterations} iterations.`);
 
 for (let i = 0; i < iterations; i++) {
-    console.log(`Iteration ${i}`);
+    const percentComplete = Math.round((i / iterations) * 10000) / 100;
+    process.stdout.write(
+        `\rIterations left: ${iterations - i} (${percentComplete}%)`
+    );
+    // console.log(`Iteration ${i}`);
     bankMoltenGlass();
 
     withdrawSeaweed(3);
@@ -219,16 +252,3 @@ for (let i = 0; i < iterations; i++) {
 
     castSuperglassMake();
 }
-
-endTime = moment();
-
-// Print how long the program ran for
-const duration = moment.duration(endTime.diff(startTime));
-const durationFormatted = moment
-    .utc(duration.asMilliseconds())
-    .format('HH:mm:ss');
-
-console.log(
-    'Ending program on: ' + moment(endTime).format('MMMM Do YYYY, h:mm:ss a')
-);
-console.log(`Program ran for ${durationFormatted}`);
