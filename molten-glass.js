@@ -219,6 +219,25 @@ function exitMessage(code) {
 process.on('SIGINT', exitMessage);
 process.on('exit', exitMessage);
 
+function parseArguments() {
+    const args = process.argv.slice(2);
+    const defaultIterations = 200;
+
+    if (args.length === 0) {
+        console.log('No arguments provided');
+        console.log('Usage: npm run [script] -- [iterations]');
+        return defaultIterations;
+    } else {
+        const iterations = parseInt(args[0]);
+        if (isNaN(iterations)) {
+            console.log(`${args[0]} is not a number`);
+            return defaultIterations;
+        } else {
+            return parseInt(iterations);
+        }
+    }
+}
+
 /**
  * To initialize:
  * Have magic tab open
@@ -230,7 +249,7 @@ process.on('exit', exitMessage);
  * OS: Windows
  *
  */
-const iterations = 160;
+const iterations = parseArguments();
 
 console.log(`Running for ${iterations} iterations.`);
 
