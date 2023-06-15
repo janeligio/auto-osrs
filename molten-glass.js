@@ -16,7 +16,7 @@ require('dotenv').config();
 function bankMoltenGlass() {
     openBank();
 
-    sleep(1); // Wait for the bank to open
+    sleepms(1250); // Wait for the bank to open
 
     depositMolten();
 
@@ -157,8 +157,9 @@ function withdrawDefault() {
 }
 
 function closeBank() {
-    robot.keyTap('escape');
     sleepms(250);
+    robot.keyTap('escape');
+    sleepms(350);
 }
 
 function switchToTab(tab) {
@@ -183,7 +184,7 @@ function castSuperglassMake() {
     robot.mouseClick();
 
     // Sleep for a random time between 3 and 5 seconds
-    const randomTime = Math.abs(randInt(1500, 2250));
+    const randomTime = Math.abs(randInt(1750, 2250));
     // console.log(`Sleeping for ${randomTime}ms`);
     sleepms(randomTime);
 }
